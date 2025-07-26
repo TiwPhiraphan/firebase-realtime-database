@@ -1,0 +1,17 @@
+{
+  "name": "firebase-realtime-database",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "bun-plugin-dts": "^0.3.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.4.0",
+    "uuid": "^11.1.0",
+    "zod": "^4.0.10"
+  }
+}

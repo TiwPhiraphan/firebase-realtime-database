@@ -1,0 +1,36 @@
+name: NPM PUBLISH
+permissions:
+    id-token: write
+on:
+    release:
+        types: [ published ]
+defaults:
+    run:
+        shell: bash
+jobs:
+    publish:
+        name: 'Publish: firebase-realtime-database registry'
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
+            - name: setup node
+              uses: actions/setup-node@v4
+              with:
+                node-version: latest
+                registry-url: 'https://registry.npmjs.org'
+            - name: setup bun
+              uses: oven-sh/setup-bun@v2
+              with:
+                bun-version: latest
+                registry-url: "https://registry.npmjs.org"
+            - name: install dependencies
+              run: bun install
+            - name: build library
+              run: bun ./build.ts
+            - name: README
+              run: mv README.md build/
+            - name: publish registry
+              env:
+                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+              run: cd ./build && npm publish --provenance --access=public
