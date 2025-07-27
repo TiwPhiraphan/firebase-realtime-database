@@ -12,7 +12,7 @@ const mjs = await build({
         whitespace: true,
         syntax: true
     },
-    external: ['firebase-admin','uuid','zod'],
+    external: ['google-auth-library','zod'],
     naming: 'index.mjs',
     sourcemap: 'none',
     outdir: 'build/dist',
@@ -27,7 +27,7 @@ const cjs = await build({
         whitespace: true,
         syntax: true
     },
-    external: ['firebase-admin','uuid','zod'],
+    external: ['google-auth-library','zod'],
     naming: 'index.cjs',
     sourcemap: 'none',
     outdir: 'build/dist',

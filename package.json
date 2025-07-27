@@ -3,15 +3,14 @@
   "module": "src/index.ts",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest",
+    "@types/bun": "^1.2.19",
     "bun-plugin-dts": "^0.3.0"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
-    "firebase-admin": "^13.4.0",
-    "uuid": "^11.1.0",
+    "google-auth-library": "^10.2.0",
     "zod": "^4.0.10"
   }
 }

@@ -12,25 +12,27 @@ jobs:
         name: 'Publish: firebase-realtime-database registry'
         runs-on: ubuntu-latest
         steps:
-            - name: checkout code
+            - name: CHECKOUT CODE
               uses: actions/checkout@v4
-            - name: setup node
+            - name: SETUP NODE
               uses: actions/setup-node@v4
               with:
                 node-version: latest
                 registry-url: 'https://registry.npmjs.org'
-            - name: setup bun
+            - name: SETUP BUN
               uses: oven-sh/setup-bun@v2
               with:
                 bun-version: latest
                 registry-url: "https://registry.npmjs.org"
-            - name: install dependencies
+            - name: INSTALL DEPENDENCIES
               run: bun install
-            - name: build library
+            - name: BUILD
               run: bun ./build.ts
-            - name: README
-              run: mv README.md build/
-            - name: publish registry
+            - name: COPY README
+              run: mv ./README.md build/
+            - name: COPY LICENSE
+              run: mv ./LICENSE build/
+            - name: PUBLISH TO NPMJS
               env:
                 NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
               run: cd ./build && npm publish --provenance --access=public

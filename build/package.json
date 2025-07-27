@@ -1,15 +1,14 @@
 {
     "name": "firebase-realtime-database",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "TiwPhiraphan",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/TiwPhiraphan/firebase-realtime-database.git"
     },
     "dependencies": {
-        "firebase-admin": "^13.4.0",
-        "uuid": "^11.1.0",
-        "zod": "^4.0.8"
+        "zod": "^4.0.8",
+        "google-auth-library": "^10.2.0"
     },
     "exports": {
         "types": "./dist/index.d.ts",
@@ -24,7 +23,7 @@
     "bugs": {
         "url": "https://github.com/TiwPhiraphan/firebase-realtime-database/issues"
     },
-    "description": "Firebase Realtime Database Collection",
+    "description": "Firebase Realtime Database Wrapper",
     "homepage": "https://github.com/TiwPhiraphan/firebase-realtime-database#readme",
     "keywords": [
         "firebase",
