@@ -1,5 +1,5 @@
 
-# firebase-realtime-database
+# 🔥firebase-realtime-database
 
 ## Project Description
 `firebase-realtime-database` is a TypeScript library designed to simplify interactions with Firebase Realtime Database directly. By adding a layer of Type Safety and schema validation via [Zod](https://zod.dev/), this library helps you manage data in your database securely and with a well-defined structure. It also automatically handles authentication using a Service Account and the Google Auth Library.
