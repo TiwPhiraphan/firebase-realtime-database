@@ -1,6 +1,6 @@
 
 import { z, type ZodType, type ZodObject } from "zod";
-import { FirebaseSDK, type Credentials } from "./firebase";
+import { FirebaseSDK, type Credentials, type FirebaseQueryParams } from "./firebase";
 
 type FirebaseCompatibleTypes = string | number | boolean | null;
 type FirebaseInitialize = { credentials: Credentials, database: string };
@@ -49,6 +49,16 @@ class FirebaseTable< Schema extends Record< string, ZodType > > {
     }
     async findAll(): Promise< ( z.infer< ZodObject< Schema > > & { _id: string } )[] > {
         const snapshot = await this.database.get( this.name ) as Record< string, z.infer< ZodObject< Schema > > > | null;
+        const result: ( z.infer< ZodObject< Schema > > & { _id: string } )[] = [];
+        if ( snapshot ) {
+            for ( const _id of Object.keys( snapshot ) ) {
+                result.push({ ...snapshot[_id]!, _id })
+            }
+        }
+        return result;
+    }
+    async query( queryOptions: FirebaseQueryParams ) {
+        const snapshot = await this.database.orderBy( this.name, queryOptions ) as Record< string, z.infer< ZodObject< Schema > > > | null;
         const result: ( z.infer< ZodObject< Schema > > & { _id: string } )[] = [];
         if ( snapshot ) {
             for ( const _id of Object.keys( snapshot ) ) {
@@ -118,4 +128,4 @@ class FirebaseApp {
     }
 }
 
-export { z as zod, FirebaseApp, type Credentials }
+export { z as zod, FirebaseApp, type Credentials };
