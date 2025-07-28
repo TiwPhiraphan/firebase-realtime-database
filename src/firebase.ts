@@ -15,6 +15,19 @@ export type Credentials = {
     readonly auth_provider_x509_cert_url?: string
 }
 
+type FirebaseQueryParams = Partial<{
+    orderBy: any;
+    equalTo: any;
+    startAt: any;
+    endAt: any;
+    limitToFirst: number;
+    limitToLast: number;
+    shallow: boolean;
+    print: "pretty" | "silent";
+    format: "export";
+    timeout: string; // เช่น "5s", "100ms"
+}>;
+
 export class FirebaseSDK {
 
     private auth: GoogleAuth< AuthClient >;
@@ -47,7 +60,7 @@ export class FirebaseSDK {
         }).then( response => response.json() );
     }
 
-    public async orderBy( path: string, query: Partial< Record< "orderBy" | "equalTo" | "startAt" | "endAt" | "limitToFirst" | "limitToLast" | "shallow" | "print" | "format" | "timeout", any > > ): Promise< any > {
+    public async orderBy( path: string, query: FirebaseQueryParams ): Promise< any > {
         const token = await this.getAccessToken();
         const params = new URLSearchParams();
         for ( const [ key, value ] of Object.entries( query ) ) {
