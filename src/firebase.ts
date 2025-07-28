@@ -42,6 +42,7 @@ export class FirebaseSDK {
     public async get( path: string ): Promise< any > {
         const token = await this.getAccessToken();
         return await fetch( `${ this.target }/${ path }.json`, {
+            cache: 'no-store',
             headers: { Authorization: `Bearer ${ token }` }
         }).then( response => response.json() );
     }
@@ -53,16 +54,16 @@ export class FirebaseSDK {
             params.set( key, typeof value === "string" ? `"${ value }"` : JSON.stringify( value ) );
         }
         return await fetch( `${ this.target }/${ path }.json?${ params.toString() }`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+            cache: 'no-store',
+            headers: { Authorization: `Bearer ${token}` }
         }).then( response => response.json() );
     }
 
     public async set( path: string, value: any ): Promise< void > {
         const token = await this.getAccessToken();
         await fetch( `${ this.target }/${ path }.json`, {
-            method: "PUT",
+            method: 'PUT',
+            cache: 'no-store',
             body: typeof value === 'string' ? value : JSON.stringify( value ),
             headers: { "Content-Type": "application/json; charset=utf8", Authorization: `Bearer ${ token }` }
         });
@@ -72,6 +73,7 @@ export class FirebaseSDK {
         const token = await this.getAccessToken();
         const res = await fetch(`${ this.target }/${ path }.json`, {
             method: 'POST',
+            cache: 'no-store',
             body: JSON.stringify( value ),
             headers: { "Content-Type": "application/json; charset=utf-8", Authorization: `Bearer ${ token }` }
         });
@@ -82,7 +84,8 @@ export class FirebaseSDK {
     public async update( path: string, value: any ): Promise< void > {
         const token = await this.getAccessToken();
         await fetch( `${ this.target }/${ path }.json`, {
-            method: "PATCH",
+            method: 'PATCH',
+            cache: 'no-store',
             body: typeof value === 'string' ? value : JSON.stringify( value ),
             headers: { "Content-Type": "application/json; charset=utf8", Authorization: `Bearer ${ token }` }
         });
@@ -91,7 +94,8 @@ export class FirebaseSDK {
     public async delete( path: string ): Promise< void > {
         const token = await this.getAccessToken();
         await fetch(`${ this.target }/${ path }.json`, {
-            method: "DELETE",
+            method: 'DELETE',
+            cache: 'no-store',
             headers: { Authorization: `Bearer ${ token }` }
         });
     }
