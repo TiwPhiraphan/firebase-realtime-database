@@ -15,7 +15,7 @@ export type Credentials = {
     readonly auth_provider_x509_cert_url?: string
 }
 
-type FirebaseQueryParams = Partial<{
+export type FirebaseQueryParams = Partial<{
     orderBy: any;
     equalTo: any;
     startAt: any;
@@ -29,11 +29,9 @@ type FirebaseQueryParams = Partial<{
 }>;
 
 export class FirebaseSDK {
-
     private auth: GoogleAuth< AuthClient >;
     private target: string;
     private storage = { token: '', expire: 0 };
-
     private async getAccessToken(): Promise< string > {
         const now = Date.now();
         const { token, expire } = this.storage;
@@ -43,7 +41,6 @@ export class FirebaseSDK {
         }
         return this.storage.token;
     }
-
     constructor( ServiceAccount: { credentials: Credentials, database: string } ) {
         this.target = ServiceAccount.database.endsWith('/') ? ServiceAccount.database.slice(0,-1) : ServiceAccount.database;
         this.auth = new GoogleAuth({
@@ -51,7 +48,6 @@ export class FirebaseSDK {
             scopes: ['https://www.googleapis.com/auth/firebase.database','https://www.googleapis.com/auth/userinfo.email']
         });
     }
-
     public async get( path: string ): Promise< any > {
         const token = await this.getAccessToken();
         return await fetch( `${ this.target }/${ path }.json`, {
@@ -59,7 +55,6 @@ export class FirebaseSDK {
             headers: { Authorization: `Bearer ${ token }` }
         }).then( response => response.json() );
     }
-
     public async orderBy( path: string, query: FirebaseQueryParams ): Promise< any > {
         const token = await this.getAccessToken();
         const params = new URLSearchParams();
@@ -71,7 +66,6 @@ export class FirebaseSDK {
             headers: { Authorization: `Bearer ${token}` }
         }).then( response => response.json() );
     }
-
     public async set( path: string, value: any ): Promise< void > {
         const token = await this.getAccessToken();
         await fetch( `${ this.target }/${ path }.json`, {
@@ -81,7 +75,6 @@ export class FirebaseSDK {
             headers: { "Content-Type": "application/json; charset=utf8", Authorization: `Bearer ${ token }` }
         });
     }
-
     public async push( path: string, value: any ): Promise< string > {
         const token = await this.getAccessToken();
         const res = await fetch(`${ this.target }/${ path }.json`, {
@@ -93,7 +86,6 @@ export class FirebaseSDK {
         const { name } = await res.json() as { name: string };
         return name;
     }
-
     public async update( path: string, value: any ): Promise< void > {
         const token = await this.getAccessToken();
         await fetch( `${ this.target }/${ path }.json`, {
@@ -103,7 +95,6 @@ export class FirebaseSDK {
             headers: { "Content-Type": "application/json; charset=utf8", Authorization: `Bearer ${ token }` }
         });
     }
-
     public async delete( path: string ): Promise< void > {
         const token = await this.getAccessToken();
         await fetch(`${ this.target }/${ path }.json`, {
@@ -112,5 +103,4 @@ export class FirebaseSDK {
             headers: { Authorization: `Bearer ${ token }` }
         });
     }
-
 }
