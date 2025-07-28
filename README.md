@@ -19,6 +19,7 @@ This project was created to:
   - `update()`: Update a document's data using a callback function.
   - `delete()`: Delete a document.
 - **Table Data Management**:
+  - `query()`: Filter multiple documents by options.
   - `create()`: Create a new document in a collection and return its ID.
   - `findAll()`: Retrieve all documents in a collection.
   - `findById()`: Find a document by its ID.
@@ -41,7 +42,7 @@ This project was created to:
 You need to have Node.js or Bun installed on your system.
 
 **Installation**
-You can install this library via npm, yarn, or bun:
+You can install this library via npm or bun:
 ``` bash
 # With npm
 npm install firebase-realtime-database
