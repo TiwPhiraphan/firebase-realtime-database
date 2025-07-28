@@ -47,7 +47,7 @@ export class FirebaseSDK {
         }).then( response => response.json() );
     }
 
-    public async orderBy( path: string, query: Partial< Record< "orderBy" | "equalTo" | "startAt" | "endAt" | "equalTo", any > > ): Promise< any > {
+    public async orderBy( path: string, query: Partial< Record< "orderBy" | "equalTo" | "startAt" | "endAt" | "limitToFirst" | "limitToLast" | "shallow" | "print" | "format" | "timeout", any > > ): Promise< any > {
         const token = await this.getAccessToken();
         const params = new URLSearchParams();
         for ( const [ key, value ] of Object.entries( query ) ) {
