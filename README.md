@@ -62,7 +62,7 @@ import { FirebaseApp, zod, type Credentials } from 'firebase-realtime-database';
 
 const credentials: Credentials = {
     project_id: "service_account_project_id",
-    private_key: "service_account_private_key", // or use env, process.env['PRIVATE_KEY'].replace(/\\n/g, '\n')
+    private_key: "service_account_private_key",
     client_email: "service_account_client_email"
 }
 

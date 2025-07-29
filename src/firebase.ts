@@ -44,7 +44,10 @@ export class FirebaseSDK {
     constructor( ServiceAccount: { credentials: Credentials, database: string } ) {
         this.target = ServiceAccount.database.endsWith('/') ? ServiceAccount.database.slice(0,-1) : ServiceAccount.database;
         this.auth = new GoogleAuth({
-            credentials: ServiceAccount.credentials,
+            credentials: {
+                ...ServiceAccount.credentials,
+                private_key: ServiceAccount.credentials.private_key.replace(/\\n/g,'\n')
+            },
             scopes: ['https://www.googleapis.com/auth/firebase.database','https://www.googleapis.com/auth/userinfo.email']
         });
     }
